@@ -5,7 +5,8 @@ const app = express();
 
 app.set("views", "./views"); //set the views shortcut
 // app.set("view engine", "pug"); //set the view engine to pug
-app.set("view engine", "ejs"); //set the view engine to ejs
+app.set("view engine", "ejs");
+
 
 app.use(express.static("public"));
 
@@ -82,10 +83,10 @@ async function getData(endpoint) {
 //get the photos of the top 100 tracks albums
 app.get("/dashboard", async (req, res) => {
   const userInfo = await getData("/me");
-  const tracks = await getData("/me/top/tracks?time_range=short_term&limit=50");
-  const artists = await getData("/me/top/artists?time_range=short_term&limit=50");
+  const tracksShort = await getData("/me/top/tracks?time_range=short_term&limit=50");
+  const artistsShort = await getData("/me/top/artists?time_range=short_term&limit=50");
 
-  res.render("dashboard", { user: userInfo, tracks: tracks.items, artists: artists.items});
+  res.render("dashboard", { user: userInfo, tracksShort: tracksShort.items, artists: artists.items});
 });
 
 let listener = app.listen(3000, function () {
