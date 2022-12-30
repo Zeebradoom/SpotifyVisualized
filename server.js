@@ -86,7 +86,17 @@ app.get("/dashboard", async (req, res) => {
   const tracksShort = await getData("/me/top/tracks?time_range=short_term&limit=50");
   const artistsShort = await getData("/me/top/artists?time_range=short_term&limit=50");
 
-  res.render("dashboard", { user: userInfo, tracksShort: tracksShort.items, artists: artists.items});
+  const tracksMed = await getData("/me/top/tracks?time_range=medium_term&limit=50");
+  // console.log(tracksMed.items[0].);
+  const artistsMed = await getData("/me/top/artists?time_range=medium_term&limit=50");
+
+  const tracksLong = await getData("/me/top/tracks?time_range=long_term&limit=50");
+  const artistsLong = await getData("/me/top/artists?time_range=long_term&limit=50");
+
+  res.render("dashboard", { user: userInfo, 
+    tracksShort: tracksShort.items, artistsShort: artistsShort.items, 
+    tracksMed: tracksMed.items, artistsMed: artistsMed.items,
+     tracksLong: tracksLong.items, artistsLong: artistsLong.items});
 });
 
 let listener = app.listen(3000, function () {

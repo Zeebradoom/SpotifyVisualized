@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html>
-    
-<!-- <h2>Your Top Songs of the Month</h2> -->
-
-<div class="button-row">
-    <button id="this-month-button">This month</button>
-    <button id="last-6-months-button">Last 6 months</button>
-    <button id="all-time-button">All Time</button>
-</div>
-
 
 <style>
     body {
@@ -45,7 +36,7 @@
 
     .button-row {
     text-align: center;
-    margin-bottom: 16px;
+    margin-top: 50px;
     }
 
     .button-row button {
@@ -69,36 +60,22 @@
     width: 100%;
     }
 
-    td, th {
-    border: 1px solid #b3b3b3;
-    padding: 8px;
-    }
-
-    tr:nth-child(even) {
-    background-color: #191414;
-    }
-
-    .circular_image {
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    }
-
-    .rectangular_image {
-    width: 64px;
-    height: 64px;
-    }
-
-
     .grid {
+        border: 1px solid #000; /* add a solid black border */
+        padding-top: 20px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    grid-gap: 16px;
+    /* gap: 16px 16px; */
+    grid-row-gap: 16px;  /* set vertical gap to 16px */
+    grid-column-gap: 16px;  /* set horizontal gap to 16px */
     justify-content: center;
     margin: 0 auto;
-    min-width: 300px;
-    max-width: 55%;
+    /* margin-top: 8px;
+    margin-bottom: 8px; */
+    /* min-width: 400px; */
+    max-width: 900px;
+    max-height: 900px;
     }
 
     .grid .center {
@@ -118,30 +95,38 @@
     .grid img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        max-width: 400px;
+        max-height: 400px;
+        object-fit: contain;
     }
 </style>
 
 <div class="grid">
-    <div class="center">Your top songs of this month</div>
+    <div class="center">Your mother</div>
 
     <% 
     let j = 0;
     for (let i=0; i < 49; i++) { %>
         <!-- if i is not the middle 9 cubes, do the following -->
         <% if (i !==24 && i !==25 && i !==26) { %>
-            <img src="<%= tracks[i-j].album.images[1].url %>" alt="album image">
+            <img src="<%= tracksMed[i-j].album.images[1].url %>" alt="album image">
             <% } else { %>
-                <!-- Decrement i by 1 here -->
+                <!-- keep track of alternatives -->
                 <% j=j+1;;%>
-                
                     <% } %>
                         <% } %>
 </div>
 
+<div class="button-row">
+    <button id="this-month-button">This month</button>
+    <button id="last-6-months-button">Last 6 months</button>
+    <button id="all-time-button">All Time</button>
+</div>
+
+
+<!-- JAVASCRIPT HERE -->
+
 <script>
-    // let activeTracks = <%= tracks %>;
-    // let activeArtists = <%= artists  %>;
 
     document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("this-month-button").addEventListener("click", () => {
@@ -156,6 +141,7 @@
             });
         });
 
+        // has to go after the this-month-button event listener so that it actually loads in the DOM
      document.addEventListener("DOMContentLoaded", () => {
             // Get the button element
             const button = document.getElementById("this-month-button");
@@ -164,11 +150,26 @@
             button.click();
         });
 
-    document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("last-6-months-button").addEventListener("click", () => {
-                // Load top songs for this month
-                document.querySelector(".center").innerHTML = "Your top songs of the last 6 months";
-            });
+    document.getElementById("last-6-months-button").addEventListener("click", () => {
+            // Get the grid element
+            const grid = document.querySelector(".grid");
+
+            // Clear the grid
+            grid.innerHTML = "";
+
+            // Add the center element back to the grid
+            grid.innerHTML = '<div class="center">Your top songs of the last 6 months</div>';
+
+            // Add the tracksShort images to the grid
+            let j = 0;
+            for (let i = 0; i < 49; i++) {
+                if (i !== 24 && i !== 25 && i !== 26) {
+                    grid.innerHTML += `<img src="${tracksShort[i - j].album.images[1].url}" alt="album image">`;
+                } else {
+                    // keep track of alternatives
+                    j = j + 1;
+                }
+            }
         });
     
     document.addEventListener("DOMContentLoaded", () => {
@@ -182,41 +183,3 @@
 
 
 </html>
-
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-    <title>My Spotify API app ✨</title>
-</head>
-
-<body>
-    <h1>Welcome! <%= user.id %> ✨</h1>
-    <img src="<%= user.images[0].url %>" class="circular_image" />
-    <table>
-        <% for (let t of tracks) { %>
-            <tr>
-                <td>
-                    <%= t.artists[0].name %>
-                </td>
-                <td>
-                    <%= t.name %>
-                </td>
-                <td>
-                    <img src="<%= t.album.images[1].url %>" class="rectangular_image" />
-                </td>
-            </tr>
-            <% } %>
-    </table>
-    <table>
-        <% for (let a of artists) { %>
-            <tr>
-                <td>
-                    <%= a.name %>
-                </td>
-            </tr>
-            <% } %>
-    </table>
-</body>
-
-</html> -->
