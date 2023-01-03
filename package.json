@@ -8,14 +8,13 @@
   },
   "type": "module",
   "dependencies": {
-    "@chakra-ui/core": "^0.8.0",
-    "@chakra-ui/react": "^2.4.5",
-    "ejs": "^3.1.8",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "html": "^1.0.0",
     "node-fetch": "^3.2.0",
-    "nodemon": "^2.0.15",
-    "pug": "^3.0.0"
+    "nodemon": "^2.0.15"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "ejs-lint": "^2.0.0"
+  }
 }

@@ -1,5 +1,8 @@
-<!DOCTYPE html>
+
+ <%- include("../node_modules/ejs/ejs.js") %> 
+
 <html>
+    
 
 <style>
     body {
@@ -104,17 +107,7 @@
 <div class="grid">
     <div class="center">Your mother</div>
 
-    <% 
-    let j = 0;
-    for (let i=0; i < 49; i++) { %>
-        <!-- if i is not the middle 9 cubes, do the following -->
-        <% if (i !==24 && i !==25 && i !==26) { %>
-            <img src="<%= tracksMed[i-j].album.images[1].url %>" alt="album image">
-            <% } else { %>
-                <!-- keep track of alternatives -->
-                <% j=j+1;;%>
-                    <% } %>
-                        <% } %>
+   
 </div>
 
 <div class="button-row">
@@ -124,9 +117,15 @@
 </div>
 
 
+
+
 <!-- JAVASCRIPT HERE -->
 
-<script>
+<script src="../node_modules/ejs/ejs.js">
+    var tracksMed = JSON.parse('<%- ejs.escape(tracksMed) %>');
+    console.log(tracksMed[0].album.images[1].url);
+    const tracksShort = window.tracksShort;
+    const tracksLong = window.tracksLong;
 
     document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("this-month-button").addEventListener("click", () => {
@@ -138,6 +137,18 @@
 
                 // Update the inner HTML of the element with the center class
                 document.querySelector(".center").innerHTML = `Your top songs of ${month} ${year}`;
+
+                let j = 0;
+                let html = '';
+                for (let i = 0; i < 49; i++) {
+                    if (i !== 24 && i !== 25 && i !== 26) {
+                        html += `<img src="${tracksMed[i - j].album.images[1].url}" alt="album image">`;
+                    } else {
+                        j = j + 1;
+                    }
+                }
+                grid.innerHTML = html;
+
             });
         });
 
@@ -151,25 +162,11 @@
         });
 
     document.getElementById("last-6-months-button").addEventListener("click", () => {
-            // Get the grid element
-            const grid = document.querySelector(".grid");
 
-            // Clear the grid
-            grid.innerHTML = "";
-
+        const tracksShort = window.tracksShort;        
             // Add the center element back to the grid
-            grid.innerHTML = '<div class="center">Your top songs of the last 6 months</div>';
+            document.querySelector(".center").innerHTML = "Your top songs of the last 6 months";
 
-            // Add the tracksShort images to the grid
-            let j = 0;
-            for (let i = 0; i < 49; i++) {
-                if (i !== 24 && i !== 25 && i !== 26) {
-                    grid.innerHTML += `<img src="${tracksShort[i - j].album.images[1].url}" alt="album image">`;
-                } else {
-                    // keep track of alternatives
-                    j = j + 1;
-                }
-            }
         });
     
     document.addEventListener("DOMContentLoaded", () => {

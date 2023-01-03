@@ -4,7 +4,6 @@ import fetch from "node-fetch";
 const app = express();
 
 app.set("views", "./views"); //set the views shortcut
-// app.set("view engine", "pug"); //set the view engine to pug
 app.set("view engine", "ejs");
 
 
@@ -94,9 +93,9 @@ app.get("/dashboard", async (req, res) => {
   const artistsLong = await getData("/me/top/artists?time_range=long_term&limit=50");
 
   res.render("dashboard", { user: userInfo, 
-    tracksShort: tracksShort.items, artistsShort: artistsShort.items, 
-    tracksMed: tracksMed.items, artistsMed: artistsMed.items,
-     tracksLong: tracksLong.items, artistsLong: artistsLong.items});
+    tracksShort: JSON.stringify(tracksShort.items), artistsShort: artistsShort.items, 
+    tracksMed: JSON.stringify(tracksMed.items), artistsMed: artistsMed.items,
+     tracksLong: JSON.stringify(tracksLong.items), artistsLong: artistsLong.items});
 });
 
 let listener = app.listen(3000, function () {
