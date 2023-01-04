@@ -1,13 +1,21 @@
 import express from "express";
 import fetch from "node-fetch";
+import cors from "cors";
+// const path = require("path");
+import path from "path";
+
+
 
 const app = express();
 
+// const cors = require('cors');
+
 app.set("views", "./views"); //set the views shortcut
 app.set("view engine", "ejs");
+app.use(express.json());
+app.use(cors());
 
-
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 const redirect_uri = "http://localhost:3000/callback"; //whitelisted redirect uri via developer dashboard
 const client_id = "bc138b8d2f814b4d881e26d13cccbf72"; //client id from developer dashboard
@@ -58,8 +66,11 @@ app.get("/callback", async (req, res) => {
   const data = await response.json();
   global.access_token = data.access_token;
 
-  res.redirect("/dashboard");
+  res.redirect("http://127.0.0.1:5501/views/dashboard.html");
+  // res.sendFile(path.join(__dirname, "views", "dashboard.html"));
 });
+ // res.sendFile(path.join(__dirname, "views", "dashboard.html"));
+  // res.redirect("/dashboard");
 
 /*
 Below is the function that gets the data from the spotify api.
@@ -80,23 +91,31 @@ async function getData(endpoint) {
 }
 
 //get the photos of the top 100 tracks albums
-app.get("/dashboard", async (req, res) => {
+app.get("/tracksShort", async (req, res) => {
   const userInfo = await getData("/me");
   const tracksShort = await getData("/me/top/tracks?time_range=short_term&limit=50");
-  const artistsShort = await getData("/me/top/artists?time_range=short_term&limit=50");
 
-  const tracksMed = await getData("/me/top/tracks?time_range=medium_term&limit=50");
-  // console.log(tracksMed.items[0].);
-  const artistsMed = await getData("/me/top/artists?time_range=medium_term&limit=50");
-
-  const tracksLong = await getData("/me/top/tracks?time_range=long_term&limit=50");
-  const artistsLong = await getData("/me/top/artists?time_range=long_term&limit=50");
-
-  res.render("dashboard", { user: userInfo, 
-    tracksShort: JSON.stringify(tracksShort.items), artistsShort: artistsShort.items, 
-    tracksMed: JSON.stringify(tracksMed.items), artistsMed: artistsMed.items,
-     tracksLong: JSON.stringify(tracksLong.items), artistsLong: artistsLong.items});
+  res.json({ user: userInfo, 
+    tracksShort: tracksShort.items});
 });
+
+app.get("/tracksMedium", async (req, res) => {
+  const userInfo = await getData("/me");
+  const tracksMedium = await getData("/me/top/tracks?time_range=medium_term&limit=50");
+
+  res.json({ user: userInfo, 
+    tracksMedium: tracksMedium.items});
+});
+
+
+app.get("/tracksLong", async (req, res) => {
+  const userInfo = await getData("/me");
+  const tracksLong = await getData("/me/top/tracks?time_range=long_term&limit=50");
+
+  res.json({ user: userInfo, 
+     tracksLong: tracksLong.items,});
+});
+
 
 let listener = app.listen(3000, function () {
   console.log(

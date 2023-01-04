@@ -24,23 +24,23 @@
         }
 
         /* Define the animation for the background */
-        @keyframes wave {
+        /* @keyframes wave {
         0% {
-            background-color: #1db954;
+        background-color: #38b664bf;
         }
         25% {
-            background-color: #46937e;
+        background-color: #46937e8a;
         }
         50% {
-            background-color: #f32faa;
+        background-color: #f32fab93;
         }
         75% {
-            background-color: #cbf656;
+        background-color: #cbf65695;
         }
         100% {
-            background-color: #1DB954;
+        background-color: #1db9547f;
         }
-        }
+        } */
 
         /* Style the login button */
         .login-button {
@@ -74,19 +74,34 @@
         width: 100%;
         background: linear-gradient(180deg, #1DB954 0%, #191414 50%, #FFFFFF 100%);
         }
+        .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #1DB954;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 50px;
+        border-radius: 10px;
+        }
+
 
     </style>
 </head>
 <body>
     
-
+<div class="card">
     <h1 style="text-align: center; color: white; margin-top: 50px;">Spotify Visualizer</h1>
-    <p style="text-align: center; color: white; margin-top: 20px;">See what songs and artists you've been listening to
-        and share with friends!</p>
-    <a href="/authorize"><button class="login-button">Login with Spotify</button></a>
+    <p style="text-align: center; color: white; margin-top: 20px;">See your top songs of this month, last 6 months, and all time!</p>
+    <a href="http://localhost:3000/authorize"><button class="login-button">Login with Spotify</button></a>
     <p style="text-align: center; color: white; margin-top: 20px;">made by <a href="https://www.linkedin.com/in/derrick-cui/" 
         style="color: blue; text-decoration: underline;">Derrick</a></p>
+</div>
 
 </body>
 
 </html>
+
+<!-- http://127.0.0.1:5501/views/index.html -->
+<!-- http://localhost:3000/authorize -->
+<!-- res.sendFile(__dirname + "/views/dashboard.html"); -->

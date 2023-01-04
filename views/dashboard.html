@@ -1,0 +1,44 @@
+
+<html>
+    <head>
+        <title>Spotify Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+        <link rel="stylesheet" href="dashboard.css">
+        <script src="dashboard.js"></script>
+    </head>
+<body>
+    <div class="card">
+        <div class="center" id="banner">Select Time Frame From Below</div>
+        <div class="grid">
+            <div class="center">title</div>
+        </div>
+
+        <div class="button-row">
+            <button class="button-row" id="this-month-button" onclick="shorte()">This month</button>
+            <button class="button-row" id="last-6-months-button" onclick="mediume()">Last 6 months</button>
+            <button class="button-row" id="all-time-button" onclick="longe()">All Time</button>
+        </div>
+    </div>
+
+
+    <div class="info">
+        <h3>Top 50 Songs</h3>
+        <table id="top-songs">
+            <thead>
+                <tr>
+                    <th>Song Name</th>
+                    <th>Album</th>
+                    <th>Artist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add rows for each song -->
+
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
