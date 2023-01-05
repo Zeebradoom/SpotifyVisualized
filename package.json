@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "description": "Spotify example node app",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "type": "module",
   "dependencies": {
