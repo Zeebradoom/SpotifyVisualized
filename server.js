@@ -22,6 +22,7 @@ const client_id = "bc138b8d2f814b4d881e26d13cccbf72"; //client id from developer
 const client_secret = "dd8bea225a2041c28b59846c68adee10"; //client secret from developer dashboard
 
 global.access_token;
+const port = process.env.PORT || 5501;
 
 //file to first render
 app.get("/", function (req, res) {
@@ -65,6 +66,8 @@ app.get("/callback", async (req, res) => {
 
   const data = await response.json();
   global.access_token = data.access_token;
+  
+  res.redirect(`http://127.0.0.1:${port}/views/dashboard.html`);
 
   res.redirect("http://127.0.0.1:5501/views/dashboard.html");
   // res.sendFile(path.join(__dirname, "views", "dashboard.html"));
