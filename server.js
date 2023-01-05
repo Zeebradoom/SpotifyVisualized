@@ -22,7 +22,7 @@ const client_id = "bc138b8d2f814b4d881e26d13cccbf72"; //client id from developer
 const client_secret = "dd8bea225a2041c28b59846c68adee10"; //client secret from developer dashboard
 
 global.access_token;
-const port = process.env.PORT || 5501;
+// const port = process.env.PORT || 5501;
 
 //file to first render
 app.get("/", function (req, res) {
