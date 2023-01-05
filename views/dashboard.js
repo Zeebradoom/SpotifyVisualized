@@ -29,7 +29,7 @@ const shorte = () => {
     document.getElementById("banner").style.display = "none";
 
     const h3Element = document.querySelector("h3");
-    h3Element.innerHTML = `Top 50 songs of ${month} ${year}`;
+    h3Element.innerHTML = `Your top 50 songs of ${month} ${year}`;
 
 
     

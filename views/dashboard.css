@@ -173,13 +173,16 @@ th,
 td {
     text-align: left;
     padding: 8px;
+    background-color: #1DB954;
+    color: white;
 }
 
-tr:nth-child(odd) {
+/* tr:nth-child(odd) {
     background-color: #f2f2f2;
-}
+} */
+
 
 th {
-    background-color: #4caf50;
+    background-color: #1DB954;
     color: white;
 }
